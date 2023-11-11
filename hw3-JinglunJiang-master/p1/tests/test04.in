@@ -1,0 +1,1 @@
+bash ../p1.sh -n 1 -e tom,lamonts data/data00
