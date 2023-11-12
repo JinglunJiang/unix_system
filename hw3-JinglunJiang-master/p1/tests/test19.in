@@ -1,1 +1,0 @@
-bash ../p1.sh -p 'vim test.c' data/data02

@@ -1,1 +1,0 @@
-bash ../p1.sh -p 'vim test.c' -e bob,joe -n 30 data/data01

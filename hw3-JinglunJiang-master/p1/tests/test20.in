@@ -1,1 +1,0 @@
-bash ../p1.sh -p 'vim test.c' -n 11 -e sallyf,maxg,trace,larry data/data02
