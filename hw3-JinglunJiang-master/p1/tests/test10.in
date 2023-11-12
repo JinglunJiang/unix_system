@@ -1,0 +1,1 @@
+bash ../p1.sh -e root -p 'vim test.c' data/data01

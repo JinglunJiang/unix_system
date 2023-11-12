@@ -1,0 +1,2 @@
+
+bash ../p1.sh -p 'vim test.c' -e lamonts,maxg,lamonts9,lamonts2,lamonts5,lamonts7,maxg11,maxg2,maxg6,maxg9 data/data02

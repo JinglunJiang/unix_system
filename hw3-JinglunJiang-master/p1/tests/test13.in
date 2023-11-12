@@ -1,0 +1,1 @@
+bash ../p1.sh -p 'grep -o -E [0-9]' -e tom,bobby_g,lamonts,sallyf+ data/data01
