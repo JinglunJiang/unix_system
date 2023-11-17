@@ -2,9 +2,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#define _GNU_SOURCE
 #include <getopt.h>
 #include "shell.h"
-#define _GNU_SOURCE
 
 int main(int argc, char *argv[])
 {
@@ -13,12 +13,14 @@ int main(int argc, char *argv[])
   int max_line = 0;
 
   int opt;
+  int nonOptionEncountered = 0;
+
   while ((opt = getopt(argc, argv, "s:j:l:")) != -1)
   {
     int option_value;
-    if (optarg == NULL || sscanf(optarg, "%d", &option_value) != 1 || option_value <= 0)
+    if (optarg == NULL || optarg[0] == '\0' || sscanf(optarg, "%d", &option_value) != 1 || option_value <= 0)
     {
-      printf("Usage: msh [-s NUMBER] [-j NUMBER] [-l NUMBER]\n");
+      printf("usage: msh [-s NUMBER] [-j NUMBER] [-l NUMBER]\n");
       return 1;
     }
 
@@ -33,7 +35,20 @@ int main(int argc, char *argv[])
     case 'l':
       max_line = option_value;
       break;
+    default:
+      printf("usage: msh [-s NUMBER] [-j NUMBER] [-l NUMBER]\n");
+      return 1;
     }
+  }
+
+  for (int index = optind; index < argc; index++) {
+    nonOptionEncountered = 1;
+    break;
+  }
+
+  if (nonOptionEncountered) {
+    printf("usage: msh [-s NUMBER] [-j NUMBER] [-l NUMBER]\n");
+    return 1;
   }
 
   msh_t *shell = alloc_shell(max_jobs, max_line, max_history);
@@ -55,14 +70,13 @@ int main(int argc, char *argv[])
       break;
     }
 
-    if (strcmp(line, "exit") == 0)
-    {
+    if (evaluate(shell, line) == 1){
       break;
     }
-
-    evaluate(shell, line);
+    
     line = NULL;
   }
+  
   exit_shell(shell);
   return 0;
 }

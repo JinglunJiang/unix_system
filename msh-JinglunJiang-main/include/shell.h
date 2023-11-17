@@ -2,6 +2,7 @@
 #define _SHELL_H_
 
 #include <stdbool.h>
+#include "job.h"
 
 // Represents the state of the shell
 typedef struct msh {
@@ -9,6 +10,7 @@ typedef struct msh {
   int max_jobs;
   int max_line;
   int max_history;
+  job_t *jobs;
 }msh_t;
 
 /*
